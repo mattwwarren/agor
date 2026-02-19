@@ -93,6 +93,8 @@ export const PermissionRequestBlock: React.FC<PermissionRequestBlockProps> = ({
     if (isActive) return <LockOutlined style={{ fontSize: 20, color: token.colorWarning }} />;
     if (isApproved) return <CheckOutlined style={{ fontSize: 20, color: token.colorSuccess }} />;
     if (isDenied) return <CloseOutlined style={{ fontSize: 20, color: token.colorError }} />;
+    if (isTimedOut)
+      return <ClockCircleOutlined style={{ fontSize: 20, color: token.colorTextSecondary }} />;
     return null;
   };
 
@@ -102,6 +104,7 @@ export const PermissionRequestBlock: React.FC<PermissionRequestBlockProps> = ({
     if (isActive) return 'Permission Required';
     if (isApproved) return 'Permission Approved';
     if (isDenied) return 'Permission Denied';
+    if (isTimedOut) return 'Permission Request Timed Out';
     return 'Permission Request';
   };
 
@@ -113,6 +116,9 @@ export const PermissionRequestBlock: React.FC<PermissionRequestBlockProps> = ({
     }
     if (isDenied && approved_at) {
       return `Denied ${new Date(approved_at).toLocaleString()}`;
+    }
+    if (isTimedOut && approved_at) {
+      return `Timed out ${new Date(approved_at).toLocaleString()}`;
     }
     return '';
   };
